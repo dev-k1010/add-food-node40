@@ -1,0 +1,254 @@
+-- Create table: restaurant
+
+CREATE TABLE restaurant (
+ res_id INT  AUTO_INCREMENT PRIMARY KEY ,
+ res_name VARCHAR(100),
+ Image VARCHAR(100),
+ description VARCHAR(100)
+)
+
+INSERT INTO restaurant (res_name, Image, description)
+VALUES
+('Restaurant 1', 'image1.jpg', 'Description 1'),
+('Restaurant 2', 'image2.jpg', 'Description 2'),
+('Restaurant 3', 'image3.jpg', 'Description 3'),
+('Restaurant 4', 'image4.jpg', 'Description 4'),
+('Restaurant 5', 'image5.jpg', 'Description 5'),
+('Restaurant 6', 'image6.jpg', 'Description 6'),
+('Restaurant 7', 'image7.jpg', 'Description 7'),
+('Restaurant 8', 'image8.jpg', 'Description 8'),
+('Restaurant 9', 'image9.jpg', 'Description 9'),
+('Restaurant 10', 'image10.jpg', 'Description 10');
+
+
+-- Create table: user
+
+CREATE TABLE users(
+user_id INT AUTO_INCREMENT PRIMARY KEY,
+full_name VARCHAR(100),
+email VARCHAR(100),
+password VARCHAR(100)
+)
+
+INSERT INTO users (full_name, email, password)
+VALUES
+('John Doe', 'john.doe@example.com', 'password1'),
+('Jane Smith', 'jane.smith@example.com', 'password2'),
+('Alice Johnson', 'alice.johnson@example.com', 'password3'),
+('Bob Williams', 'bob.williams@example.com', 'password4'),
+('Eva Davis', 'eva.davis@example.com', 'password5'),
+('Michael Brown', 'michael.brown@example.com', 'password6'),
+('Sara Taylor', 'sara.taylor@example.com', 'password7'),
+('David Miller', 'david.miller@example.com', 'password8'),
+('Emily Wilson', 'emily.wilson@example.com', 'password9'),
+('Daniel Lee', 'daniel.lee@example.com', 'password10'),
+('Olivia Moore', 'olivia.moore@example.com', 'password11'),
+('William Clark', 'william.clark@example.com', 'password12'),
+('Emma Taylor', 'emma.taylor@example.com', 'password13'),
+('James White', 'james.white@example.com', 'password14'),
+('Sophia Martinez', 'sophia.martinez@example.com', 'password15'),
+('Jackson Adams', 'jackson.adams@example.com', 'password16'),
+('Ava Turner', 'ava.turner@example.com', 'password17'),
+('Liam Garcia', 'liam.garcia@example.com', 'password18'),
+('Grace Harris', 'grace.harris@example.com', 'password19'),
+('Mason Thomas', 'mason.thomas@example.com', 'password20');
+
+
+-- Create table: rate_res 
+
+CREATE TABLE rate_res (
+user_id INT,
+res_id INT,
+amount INT,
+date_rate DATE,
+
+ FOREIGN KEY (user_id) REFERENCES users (user_id),
+ FOREIGN KEY (res_id) REFERENCES restaurant (res_id)
+
+
+);
+
+INSERT INTO rate_res (user_id, res_id, amount, date_rate)
+VALUES
+(1, 1, 5, '2024-03-11'),
+(2, 3, 4, '2024-03-12'),
+(3, 2, 3, '2024-03-13'),
+(4, 5, 2, '2024-03-14'),
+(5, 4, 5, '2024-03-15'),
+(6, 6, 1, '2024-03-16'),
+(7, 7, 4, '2024-03-17'),
+(8, 8, 3, '2024-03-18'),
+(9, 9, 2, '2024-03-19'),
+(10, 10, 5, '2024-03-20');
+
+
+-- Create table: like_res
+ 
+CREATE TABLE like_res (
+ user_id INT,
+ res_id INT,
+ date_like DATE,
+ 
+ FOREIGN KEY (user_id) REFERENCES users (user_id),
+ FOREIGN KEY (res_id) REFERENCES restaurant (res_id)
+ );
+
+INSERT INTO like_res (user_id, res_id, date_like)
+VALUES
+(1, 1, '2024-03-11'),
+(1, 1, '2024-03-11'),
+(1, 1, '2024-03-11'),
+(2, 1, '2024-03-12'),
+(2, 1, '2024-03-12'),
+(3, 1, '2024-03-12'),
+(3, 1, '2024-03-13'),
+(4, 1, '2024-03-14'),
+(4, 1, '2024-03-15'),
+(5, 1, '2024-03-16'),
+(5, 1, '2024-03-17'),
+(6, 8, '2024-03-18'),
+(7, 8, '2024-03-19'),
+(8, 10, '2024-03-20');
+
+ 
+-- Create table: food_type 
+ 
+ CREATE TABLE food_type(
+ type_id INT PRIMARY KEY AUTO_INCREMENT,
+ type_name VARCHAR(100)
+ )
+ 
+ INSERT INTO food_type (type_name)
+VALUES
+('Appetizer'),
+('Main Course'),
+('Dessert'),
+('Beverage'),
+('Snack'),
+('Soup'),
+('Seafood'),
+('Vegetarian'),
+('Grill'),
+('Dairy');
+ 
+ 
+-- Create table: food 
+
+CREATE TABLE food (
+food_id INT AUTO_INCREMENT PRIMARY KEY,
+food_name VARCHAR (100),
+image VARCHAR (100), 
+price FLOAT,
+description VARCHAR (255),type_id INT,
+
+FOREIGN KEY (type_id) REFERENCES food_type(type_id)
+)
+
+INSERT INTO food (food_name, image, price, description, type_id)
+VALUES
+('Pizza', 'pizza.jpg', 10.99, 'Delicious pizza with various toppings', 2),
+('Salad', 'salad.jpg', 7.99, 'Fresh and healthy salad', 1),
+('Ice Cream', 'ice_cream.jpg', 4.99, 'Sweet and creamy ice cream', 3),
+('Burger', 'burger.jpg', 8.99, 'Juicy burger with cheese and vegetables', 2),
+('Pasta', 'pasta.jpg', 12.99, 'Homemade pasta with rich tomato sauce', 2),
+('Cappuccino', 'cappuccino.jpg', 3.99, 'Classic Italian cappuccino', 4),
+('Sushi', 'sushi.jpg', 15.99, 'Assorted sushi with fresh seafood', 6),
+('Vegetable Curry', 'vegetable_curry.jpg', 9.99, 'Spicy vegetable curry with rice', 8),
+('Grilled Steak', 'grilled_steak.jpg', 17.99, 'Tender grilled steak with side dishes', 9),
+('Cheesecake', 'cheesecake.jpg', 6.99, 'Creamy cheesecake with fruit topping', 3);
+
+
+-- Create table: sub_food 
+
+CREATE TABLE sub_food (
+sub_id INT PRIMARY KEY AUTO_INCREMENT,
+sub_name VARCHAR(100),
+sub_price FLOAT,
+food_id INT,
+
+FOREIGN KEY (food_id) REFERENCES food(food_id)
+)
+
+INSERT INTO sub_food (sub_name, sub_price, food_id)
+VALUES
+('Pepperoni', 1.99, 1),
+('Caesar Salad', 2.99, 2),
+('Chocolate Chip', 0.99, 3),
+('Chicken Wings', 5.99, 4),
+('Alfredo Pasta', 14.99, 5),
+('Espresso', 2.49, 6),
+('Sashimi Platter', 19.99, 7),
+('Tofu Stir-Fry', 8.99, 8),
+('Ribeye Steak', 22.99, 9),
+('Blueberry Cheesecake', 7.99, 10);
+
+
+-- Create table: order
+
+CREATE TABLE orders(
+ user_id INT,
+ food_id INT,
+ amount INT,
+ code VARCHAR(100),
+ arr_sub_id VARCHAR (100),
+ 
+ FOREIGN KEY (user_id) REFERENCES users(user_id),
+ FOREIGN KEY (food_id) REFERENCES food(food_id)
+ )
+
+INSERT INTO orders (user_id, food_id, amount, code, arr_sub_id)
+VALUES
+(1, 1, 2, 'ORDER123', '1,2'),
+(2, 3, 1, 'ORDER456', '3'),
+(3, 2, 3, 'ORDER789', '2,3'),
+(4, 5, 1, 'ORDER101', '4'),
+(5, 4, 2, 'ORDER202', '5,6'),
+(6, 6, 1, 'ORDER303', '7'),
+(7, 7, 4, 'ORDER404', '8,9'),
+(8, 8, 2, 'ORDER505', '10'),
+(9, 9, 3, 'ORDER606', '1,2,3'),
+(10, 10, 2, 'ORDER707', '4,5');
+
+
+-- Tìm 5 người đã like nhà hàng nhiều nhất.
+
+SELECT users.full_name, COUNT(like_res.user_id) AS like_count
+FROM users
+LEFT JOIN like_res ON users.user_id = like_res.user_id
+GROUP BY users.user_id
+ORDER BY like_count DESC
+LIMIT 5;
+
+
+-- Tìm 2 nhà hàng có lượt like nhiều nhất
+
+SELECT restaurant.res_name, COUNT(like_res.res_id) AS like_count
+FROM restaurant
+LEFT JOIN like_res ON restaurant.res_id = like_res.res_id
+GROUP BY restaurant.res_id
+ORDER BY like_count DESC
+LIMIT 2;
+
+
+-- Tìm người đã đặt hàng nhiều nhất
+
+SELECT users.full_name, COUNT(orders.user_id) AS order_count
+FROM users
+LEFT JOIN orders ON users.user_id = orders.user_id
+GROUP BY users.user_id
+ORDER BY order_count DESC
+LIMIT 1;
+
+-- Tìm người dùng không hoạt động trong hệ thống (không đặt hàng, không like, không đánh giá nhà hàng)
+-- NOT IN: lọc ra các user không có trong orders, like_res, rate_res
+
+SELECT users.full_name
+FROM users
+WHERE users.user_id NOT IN (
+    SELECT user_id FROM orders
+    UNION
+    SELECT user_id FROM like_res
+    UNION
+    SELECT user_id FROM rate_res
+);
+
